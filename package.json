@@ -1,0 +1,28 @@
+{
+  "name": "quick-search",
+  "version": "0.0.1",
+  "description": "Quick search chrome extension",
+  "scripts": {
+    "start": "concurrently \"parcel watch ./components/index.jsx\"  \"parcel watch manifest.json --host localhost\"",
+    "build": "parcel build manifest.json"
+  },
+  "keywords": [],
+  "author": "Rafi993",
+  "license": "ISC",
+  "private": true,
+  "devDependencies": {
+    "@parcel/config-webextension": "^2.7.0",
+    "@parcel/transformer-sass": "^2.7.0",
+    "concurrently": "^7.3.0",
+    "parcel": "^2.7.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "cmdk": "^0.1.19",
+    "focus-trap-react": "^10.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-focus-lock": "^2.9.1",
+    "styled-components": "^5.3.5"
+  }
+}
