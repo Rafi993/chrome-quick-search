@@ -4,6 +4,10 @@ export const commands = [
     key: 'close_tab',
   },
   {
+    label: 'New Tab',
+    key: 'new_tab',
+  },
+  {
     label: 'Duplicate Tab',
     key: 'duplicate_tab',
   },

@@ -15,6 +15,11 @@ chrome.action.onClicked.addListener((tab) => {
       case 'close_tab':
         chrome.tabs.remove(sender.tab.id, () => {});
         return;
+      case 'new_tab':
+        chrome.tabs.create({
+          url: 'chrome://new-tab-page',
+        });
+        return;
     }
   });
 });
