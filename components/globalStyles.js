@@ -125,7 +125,7 @@ export const CommandStyles = createGlobalStyle`
         font-size: 16px;
         outline: none;
         color: var(--gray12);
-        background: #282828;
+        background: #282828 !important;
         height: 41px;
         border-radius: 8px;
         width: 99%;
