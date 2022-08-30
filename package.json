@@ -4,7 +4,7 @@
   "description": "Quick search chrome extension",
   "scripts": {
     "start": "concurrently \"parcel watch ./components/index.jsx\"  \"parcel watch manifest.json --host localhost\"",
-    "build": "parcel build manifest.json"
+    "build": "parcel build manifest.json && parcel build ./components/index.jsx"
   },
   "keywords": [],
   "author": "Rafi993",

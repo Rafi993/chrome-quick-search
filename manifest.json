@@ -3,7 +3,7 @@
   "name": "Quick search",
   "description": "Navigate Chrome easily",
   "version": "0.0.1",
-  "permissions": ["storage", "activeTab", "scripting"],
+  "permissions": ["tabs", "storage", "activeTab", "scripting"],
   "background": {
     "service_worker": "background.js",
     "type": "module"

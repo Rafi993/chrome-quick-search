@@ -1,6 +1,8 @@
 import { Command } from 'cmdk';
+import { useRef } from 'react';
 import FocusLock from 'react-focus-lock';
 import styled from 'styled-components';
+import { useClickOutside } from '../hooks/useClickOutside';
 import { commands } from './commands';
 
 const StyledCommandMenu = styled.div`
@@ -13,10 +15,20 @@ const StyledCommandMenu = styled.div`
   z-index: 999999;
 `;
 
-export const CommandMenu = () => {
+export const CommandMenu = ({ handleClose }) => {
+  const containerRef = useRef(null);
+  useClickOutside({ ref: containerRef, handleClose });
+
+  const handleCommand = (command) => {
+    chrome.runtime.sendMessage({
+      command,
+    });
+    handleClose();
+  };
+
   return (
     <FocusLock>
-      <StyledCommandMenu className="framer">
+      <StyledCommandMenu className="framer" ref={containerRef}>
         <Command label="Command Menu">
           <Command.Input autoFocus placeholder="Search" />
           <Command.List>
@@ -24,7 +36,13 @@ export const CommandMenu = () => {
 
             <Command.Group heading="Commands">
               {commands.map((command) => (
-                <Command.Item key={command.key}>{command.label}</Command.Item>
+                <Command.Item
+                  value={command.key}
+                  key={command.key}
+                  onSelect={() => handleCommand(command.key)}
+                >
+                  {command.label}
+                </Command.Item>
               ))}
             </Command.Group>
           </Command.List>

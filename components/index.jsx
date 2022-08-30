@@ -3,15 +3,19 @@ import ReactDOM from 'react-dom/client';
 import { App } from './App';
 
 const renderApp = () => {
-  const body = document.querySelector('body');
-  const app = document.createElement('div');
-  app.setAttribute('id', 'quick-search-chrome');
-  body.appendChild(app);
-  console.log(app);
+  if (document.querySelector('#quick-search-chrome')) return;
 
-  const root = ReactDOM.createRoot(app);
+  const div_root = document.createElement('div');
+  div_root.setAttribute('id', 'quick-search-chrome');
 
-  root.render(<App />);
+  const root = ReactDOM.createRoot(div_root);
+  document.body.appendChild(div_root);
+
+  root.render(
+    <React.StrictMode>
+      <App root={root} />
+    </React.StrictMode>,
+  );
 };
 
 renderApp();
