@@ -7,6 +7,8 @@ import { commands, subCommands } from '../commands';
 import { List } from './List';
 
 const StyledCommandMenu = styled.dialog`
+  background: #282828;
+  border: none;
   display: block;
   padding: 0;
   border-radius: 16px;
