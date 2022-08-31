@@ -1,5 +1,4 @@
 const messageHandler = (request, sender, sendResponse) => {
-  console.log(request, sender, new Date().getTime());
   const tabId = sender.tab.id;
 
   if (!sender.tab.active) return;
@@ -18,8 +17,6 @@ const messageHandler = (request, sender, sendResponse) => {
         url: sender.tab.url,
       });
       return;
-    case 'pin_tab':
-      return;
     case 'new_window':
       chrome.windows.create({ focused: true });
       return;
@@ -36,18 +33,52 @@ const messageHandler = (request, sender, sendResponse) => {
       chrome.tabs.create({
         url: 'chrome://settings',
       });
+      return;
     case 'extensions':
       chrome.tabs.create({
         url: 'chrome://extensions',
       });
+      return;
     case 'history':
       chrome.tabs.create({
         url: 'chrome://history',
       });
+      return;
     case 'bookmark_manager':
       chrome.tabs.create({
         url: 'chrome://bookmarks',
       });
+      return;
+    case 'delete_data':
+      try {
+        chrome.browsingData.remove(
+          {
+            since: request.subCommand,
+          },
+          {
+            appcache: true,
+            cache: true,
+            cacheStorage: true,
+            cookies: true,
+            downloads: true,
+            fileSystems: true,
+            formData: true,
+            history: true,
+            indexedDB: true,
+            localStorage: true,
+            passwords: true,
+            serviceWorkers: true,
+            webSQL: true,
+          },
+
+          () => {
+            console.log('deleted', request.subCommand);
+          },
+        );
+      } catch (error) {
+        console.log(error);
+      }
+      return;
   }
 };
 

@@ -5,6 +5,7 @@ specifiers:
   '@parcel/transformer-sass': ^2.7.0
   cmdk: ^0.1.19
   concurrently: ^7.3.0
+  date-fns: ^2.29.2
   focus-trap-react: ^10.0.0
   parcel: ^2.7.0
   process: ^0.11.10
@@ -15,6 +16,7 @@ specifiers:
 
 dependencies:
   cmdk: 0.1.19_biqbaboplfbrettd7655fr4n2y
+  date-fns: 2.29.2
   focus-trap-react: 10.0.0_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -1778,7 +1780,6 @@ packages:
   /date-fns/2.29.2:
     resolution: {integrity: sha512-0VNbwmWJDS/G3ySwFSJA3ayhbURMTJLtwM2DTxf9CWondCnh6DTNlO9JgRSq6ibf4eD0lfMJNBxUdEAHHix+bA==}
     engines: {node: '>=0.11'}
-    dev: true
 
   /debug/4.3.4_supports-color@5.5.0:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}

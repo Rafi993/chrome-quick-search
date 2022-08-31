@@ -1,3 +1,25 @@
+import { sub } from 'date-fns';
+
+export const subCommands = {
+  delete_data: {
+    title: 'How much data you want to delete?',
+    commands: [
+      {
+        label: 'Last 1 hour',
+        key: sub(new Date(), { hours: 1 }).getTime(),
+      },
+      {
+        label: 'Last week',
+        key: sub(new Date(), { weeks: 1 }).getTime(),
+      },
+      {
+        label: 'Forever',
+        key: 0,
+      },
+    ],
+  },
+};
+
 export const commands = [
   {
     label: 'Close Tab',
@@ -10,10 +32,6 @@ export const commands = [
   {
     label: 'Duplicate Tab',
     key: 'duplicate_tab',
-  },
-  {
-    label: 'Pin Tab',
-    key: 'pin_tab',
   },
   {
     label: 'New Window',
@@ -35,5 +53,8 @@ export const commands = [
   { label: 'Extensions', key: 'extensions' },
   { label: 'History', key: 'history' },
   { label: 'Bookmark manager', key: 'bookmark_manager' },
-  { label: 'Delete Browsing Data', key: 'delete_data' },
+  {
+    label: 'Delete Browsing Data',
+    key: 'delete_data',
+  },
 ];

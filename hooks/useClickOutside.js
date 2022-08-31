@@ -8,17 +8,9 @@ export const useClickOutside = ({ ref, handleClose }) => {
       }
     };
 
-    const handleKey = ({ key }) => {
-      if (key === 'Escape') {
-        handleClose();
-      }
-    };
-
     document.addEventListener('mousedown', clickOutside);
-    document.addEventListener('keydown', handleKey);
     return () => {
       document.removeEventListener('mousedown', clickOutside);
-      document.removeEventListener('keydown', handleKey);
     };
   }, [ref, handleClose]);
 };
