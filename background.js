@@ -1,4 +1,57 @@
-chrome.action.onClicked.addListener((tab) => {
+const messageHandler = (request, sender, sendResponse) => {
+  console.log(request, sender, new Date().getTime());
+  const tabId = sender.tab.id;
+
+  if (!sender.tab.active) return;
+
+  switch (request.command) {
+    case 'close_tab':
+      chrome.tabs.remove(tabId, () => {});
+      return;
+    case 'new_tab':
+      chrome.tabs.create({
+        url: 'chrome://new-tab-page',
+      });
+      return;
+    case 'duplicate_tab':
+      chrome.tabs.create({
+        url: sender.tab.url,
+      });
+      return;
+    case 'pin_tab':
+      return;
+    case 'new_window':
+      chrome.windows.create({ focused: true });
+      return;
+    case 'new_private_window':
+      chrome.windows.create({ focused: true, incognito: true });
+      return;
+    case 'close_window':
+      chrome.windows.remove(sender.tab.windowId);
+      return;
+    case 'full_screen':
+      chrome.windows.update(sender.tab.windowId, { state: 'fullscreen' });
+      return;
+    case 'settings':
+      chrome.tabs.create({
+        url: 'chrome://settings',
+      });
+    case 'extensions':
+      chrome.tabs.create({
+        url: 'chrome://extensions',
+      });
+    case 'history':
+      chrome.tabs.create({
+        url: 'chrome://history',
+      });
+    case 'bookmark_manager':
+      chrome.tabs.create({
+        url: 'chrome://bookmarks',
+      });
+  }
+};
+
+const clickHandler = (tab) => {
   chrome.scripting.executeScript(
     {
       target: { tabId: tab.id },
@@ -9,56 +62,10 @@ chrome.action.onClicked.addListener((tab) => {
     },
   );
 
-  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    const tabId = sender.tab.id;
+  // Adding removing listener before adding them to avoid duplicate event listeners
+  chrome.runtime.onMessage.removeListener(messageHandler);
+  chrome.runtime.onMessage.addListener(messageHandler);
+};
 
-    console.log('sender', sender);
-    if (!sender.tab.active) return;
-
-    switch (request.command) {
-      case 'close_tab':
-        chrome.tabs.remove(tabId, () => {});
-        return;
-      case 'new_tab':
-        chrome.tabs.create({
-          url: 'chrome://new-tab-page',
-        });
-        return;
-      case 'duplicate_tab':
-        chrome.tabs.create({
-          url: sender.tab.url,
-        });
-        return;
-      case 'pin_tab':
-        return;
-      case 'new_window':
-        chrome.windows.create({ focused: true });
-        return;
-      case 'new_private_window':
-        chrome.windows.create({ focused: true, incognito: true });
-        return;
-      case 'close_window':
-        chrome.windows.remove(sender.tab.windowId);
-        return;
-      case 'full_screen':
-        chrome.windows.update(sender.tab.windowId, { state: 'fullscreen' });
-        return;
-      case 'settings':
-        chrome.tabs.create({
-          url: 'chrome://settings',
-        });
-      case 'extensions':
-        chrome.tabs.create({
-          url: 'chrome://extensions',
-        });
-      case 'history':
-        chrome.tabs.create({
-          url: 'chrome://history',
-        });
-      case 'bookmark_manager':
-        chrome.tabs.create({
-          url: 'chrome://bookmarks',
-        });
-    }
-  });
-});
+chrome.action.onClicked.removeListener(clickHandler);
+chrome.action.onClicked.addListener(clickHandler);
