@@ -24,11 +24,31 @@ const StyledCommandMenu = styled.dialog`
 export const CommandMenu = ({ handleClose }) => {
   const [search, setSearch] = useState('');
   const [parentCommand, setParentCommand] = useState(null);
+  const [topWebsites, setTopWebsites] = useState([]);
   const containerRef = useRef(null);
   useClickOutside({ ref: containerRef, handleClose });
 
   useEffect(() => {
-    const handleKey = ({ key }) => {
+    try {
+      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        if (request.topWebsites) {
+          setTopWebsites(
+            request.topWebsites.slice(0, 4).map((website) => ({
+              label: website.title,
+              key: website.url,
+            })),
+          );
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleKey = (event) => {
+      const { key } = event;
+
       if (key === 'Escape') {
         if (parentCommand) {
           setParentCommand(null);
@@ -44,6 +64,14 @@ export const CommandMenu = ({ handleClose }) => {
       document.removeEventListener('keydown', handleKey);
     };
   }, [parentCommand, setParentCommand]);
+
+  const handleWebsite = (url) => {
+    chrome.runtime.sendMessage({
+      command: 'open_url',
+      url,
+    });
+    handleClose();
+  };
 
   const handleCommand = (command) => {
     switch (command) {
@@ -97,11 +125,21 @@ export const CommandMenu = ({ handleClose }) => {
                 handleCommand={handleSubCommand}
               />
             ) : (
-              <List
-                heading="Commands"
-                commands={commands}
-                handleCommand={handleCommand}
-              />
+              <>
+                {topWebsites.length > 0 && (
+                  <List
+                    heading="Most Visited Websites"
+                    commands={topWebsites}
+                    handleCommand={handleWebsite}
+                  />
+                )}
+
+                <List
+                  heading="Commands"
+                  commands={commands}
+                  handleCommand={handleCommand}
+                />
+              </>
             )}
           </Command.List>
         </Command>

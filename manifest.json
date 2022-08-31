@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Quick search",
   "description": "Navigate Chrome easily",
-  "version": "0.0.1",
-  "permissions": ["activeTab", "scripting", "browsingData"],
+  "version": "0.0.2",
+  "permissions": ["activeTab", "scripting", "browsingData", "topSites"],
   "background": {
     "service_worker": "background.js",
     "type": "module"

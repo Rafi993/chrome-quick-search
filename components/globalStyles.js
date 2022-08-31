@@ -139,6 +139,10 @@ export const CommandStyles = createGlobalStyle`
         }
     }
 
+    [cmdk-group]{
+        margin-bottom:8px;
+    }
+
     [cmdk-item] {
         content-visibility: auto;
 

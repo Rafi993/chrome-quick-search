@@ -1,4 +1,4 @@
-const messageHandler = (request, sender, sendResponse) => {
+const messageHandler = (request, sender) => {
   const tabId = sender.tab.id;
 
   if (!sender.tab.active) return;
@@ -99,20 +99,27 @@ const messageHandler = (request, sender, sendResponse) => {
           });
         },
       );
+    case 'open_url':
+      chrome.tabs.update({
+        url: request.url,
+      });
       return;
   }
 };
 
-const clickHandler = (tab) => {
-  chrome.scripting.executeScript(
-    {
-      target: { tabId: tab.id },
-      files: [`index.js`],
-    },
-    () => {
-      chrome.tabs.sendMessage(tab.id, { tabId: tab.id });
-    },
-  );
+const clickHandler = async (tab) => {
+  let topWebsites = [];
+  try {
+    topWebsites = await chrome.topSites.get();
+  } catch (_) {}
+
+  await chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: [`index.js`],
+  });
+
+  console.log('topWebsites', topWebsites);
+  chrome.tabs.sendMessage(tab.id, { tabId: tab.id, topWebsites });
 
   // Adding removing listener before adding them to avoid duplicate event listeners
   chrome.runtime.onMessage.removeListener(messageHandler);

@@ -1,6 +1,6 @@
 {
   "name": "quick-search",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Quick search chrome extension",
   "scripts": {
     "start": "concurrently \"parcel watch ./components/index.jsx\"  \"parcel watch manifest.json --host localhost\"",

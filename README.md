@@ -4,6 +4,11 @@ Chrome extension to do things quickly.
 
 ![Logo](icons/icon128.png)
 
+## How to install?
+
+Visit Chrome web store here to install the extension
+Press "CMD+E" or "CTRL+E" to launch the quick search menu.
+
 ## To run
 
 ```
