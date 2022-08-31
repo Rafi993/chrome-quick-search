@@ -81,6 +81,7 @@ const messageHandler = (request, sender, sendResponse) => {
           if (!tab.active) chrome.tabs.remove(tab.id);
         });
       });
+      return;
     case 'desktop_capture':
       chrome.tabs.captureVisibleTab(
         sender.tab.windowId,
@@ -93,6 +94,7 @@ const messageHandler = (request, sender, sendResponse) => {
           });
         },
       );
+      return;
   }
 };
 
