@@ -10,3 +10,4 @@ This is a fun expirement to see how far I can push Chrome extension manifest v3
 ## Limitations
 
 - This extension won't run inside chrome native tabs like chrome://extensions, chrome://history
+- There are some functionalities that can't be build because of the way Chrome extension work
