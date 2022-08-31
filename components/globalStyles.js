@@ -126,6 +126,7 @@ export const CommandStyles = createGlobalStyle`
         outline: none;
         color: var(--gray12);
         background: #282828 !important;
+        color: #fff !important;
         height: 41px;
         border-radius: 8px;
         width: 99%;
