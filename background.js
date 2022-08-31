@@ -50,35 +50,37 @@ const messageHandler = (request, sender, sendResponse) => {
       });
       return;
     case 'delete_data':
-      try {
-        chrome.browsingData.remove(
-          {
-            since: request.subCommand,
-          },
-          {
-            appcache: true,
-            cache: true,
-            cacheStorage: true,
-            cookies: true,
-            downloads: true,
-            fileSystems: true,
-            formData: true,
-            history: true,
-            indexedDB: true,
-            localStorage: true,
-            passwords: true,
-            serviceWorkers: true,
-            webSQL: true,
-          },
+      chrome.browsingData.remove(
+        {
+          since: request.subCommand,
+        },
+        {
+          appcache: true,
+          cache: true,
+          cacheStorage: true,
+          cookies: true,
+          downloads: true,
+          fileSystems: true,
+          formData: true,
+          history: true,
+          indexedDB: true,
+          localStorage: true,
+          passwords: true,
+          serviceWorkers: true,
+          webSQL: true,
+        },
 
-          () => {
-            console.log('deleted', request.subCommand);
-          },
-        );
-      } catch (error) {
-        console.log(error);
-      }
+        () => {
+          console.log('deleted', request.subCommand);
+        },
+      );
       return;
+    case 'close_inactive_tabs':
+      chrome.tabs.query({}, (tabs) => {
+        tabs.forEach((tab) => {
+          if (!tab.active) chrome.tabs.remove(tab.id);
+        });
+      });
   }
 };
 

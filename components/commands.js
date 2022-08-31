@@ -26,6 +26,10 @@ export const commands = [
     key: 'close_tab',
   },
   {
+    label: 'Close Other Tabs',
+    key: 'close_inactive_tabs',
+  },
+  {
     label: 'New Tab',
     key: 'new_tab',
   },
@@ -56,5 +60,6 @@ export const commands = [
   {
     label: 'Delete Browsing Data',
     key: 'delete_data',
+    hasChildren: true,
   },
 ];
