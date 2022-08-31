@@ -51,6 +51,12 @@ export const CommandMenu = ({ handleClose }) => {
         setSearch('');
         setParentCommand('delete_data');
         return;
+      case 'desktop_capture':
+        handleClose();
+        chrome.runtime.sendMessage({
+          command,
+        });
+
       default:
         chrome.runtime.sendMessage({
           command,

@@ -62,4 +62,8 @@ export const commands = [
     key: 'delete_data',
     hasChildren: true,
   },
+  {
+    label: 'Capture Screenshot',
+    key: 'desktop_capture',
+  },
 ];
