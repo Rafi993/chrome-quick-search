@@ -1,13 +1,25 @@
 # Quick search
 
-Quick search Chrome extension
+Chrome extension to do things quickly.
 
 ![Logo](icons/icon128.png)
+
+## To run
+
+```
+$ pnpm
+$ pnpm start
+
+```
 
 ## Why?
 
 This Chrome extension shows you command palette to do things easily in Chrome.
 This is a fun expirement to see how far I can push Chrome extension manifest v3
+
+## How does it look?
+
+<img src="screenshots/quick_search.png" alt="Logo" width="700"/>
 
 ## Limitations
 
