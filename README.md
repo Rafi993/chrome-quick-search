@@ -1,3 +1,12 @@
 # Quick search
 
 Quick search Chrome extension
+
+## Why?
+
+This Chrome extension shows you command palette to do things easily in Chrome.
+This is a fun expirement to see how far I can push Chrome extension manifest v3
+
+## Limitations
+
+- This extension won't run inside chrome native tabs like chrome://extensions, chrome://history
