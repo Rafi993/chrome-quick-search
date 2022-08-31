@@ -26,6 +26,7 @@ export const CommandMenu = ({ handleClose }) => {
   const [parentCommand, setParentCommand] = useState(null);
   const [topWebsites, setTopWebsites] = useState([]);
   const containerRef = useRef(null);
+  const [isLoading, setLoading] = useState(false);
   useClickOutside({ ref: containerRef, handleClose });
 
   useEffect(() => {
@@ -43,6 +44,7 @@ export const CommandMenu = ({ handleClose }) => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -104,6 +106,8 @@ export const CommandMenu = ({ handleClose }) => {
 
     handleClose();
   };
+
+  if (isLoading) return null;
 
   return (
     <FocusLock>
