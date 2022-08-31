@@ -2,6 +2,8 @@
 
 Quick search Chrome extension
 
+![Logo](icons/icon128.png)
+
 ## Why?
 
 This Chrome extension shows you command palette to do things easily in Chrome.
