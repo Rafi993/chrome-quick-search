@@ -56,6 +56,10 @@ export const commands = [
   { label: 'Settings', key: 'settings' },
   { label: 'Extensions', key: 'extensions' },
   { label: 'History', key: 'history' },
+  {
+    label: 'Downloads',
+    key: 'downloads',
+  },
   { label: 'Bookmark manager', key: 'bookmark_manager' },
   {
     label: 'Delete Browsing Data',

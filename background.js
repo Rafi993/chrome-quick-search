@@ -44,6 +44,11 @@ const messageHandler = (request, sender, sendResponse) => {
         url: 'chrome://history',
       });
       return;
+    case 'downloads':
+      chrome.tabs.create({
+        url: 'chrome://downloads',
+      });
+      return;
     case 'bookmark_manager':
       chrome.tabs.create({
         url: 'chrome://bookmarks',
