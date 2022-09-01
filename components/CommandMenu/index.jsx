@@ -86,7 +86,7 @@ export const CommandMenu = ({ handleClose }) => {
         chrome.runtime.sendMessage({
           command,
         });
-
+        return;
       default:
         chrome.runtime.sendMessage({
           command,
