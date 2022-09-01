@@ -8,16 +8,18 @@ const StyledListItem = styled.div`
   width: 100%;
   align-items: center;
   > div {
-    display: block;
+    display: flex;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0 4px;
     width: 90%;
-    > span {
-      padding-right: 8px;
-    }
   }
+`;
+
+const Emoji = styled.div`
+  padding-right: 8px;
+  min-width: 25px;
 `;
 
 export const List = ({ heading, commands, handleCommand }) => (
@@ -30,7 +32,7 @@ export const List = ({ heading, commands, handleCommand }) => (
       >
         <StyledListItem>
           <div>
-            <span>{command.emoji}</span>
+            <Emoji>{command.emoji}</Emoji>
             {command.label}
           </div>
 
