@@ -6,6 +6,7 @@ const StyledListItem = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  align-items: center;
   > span {
     display: block;
     white-space: nowrap;
