@@ -35,24 +35,11 @@ export const CommandMenu = ({ handleClose }) => {
     try {
       chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.topWebsites) {
-          setTopWebsites(
-            request.topWebsites.slice(0, 4).map((website) => ({
-              label: website.title,
-              url: website.url,
-              key: (website.title || '').toLowerCase(),
-            })),
-          );
+          setTopWebsites(request.topWebsites);
         }
 
         if (request.bookmarks) {
-          setBookmarks(
-            request.bookmarks.map((website) => ({
-              label: website.title,
-              url: website.url,
-              key: (website.title || '').toLowerCase(),
-              emoji: '⭐',
-            })),
-          );
+          setBookmarks(request.bookmarks);
         }
       });
     } catch (error) {

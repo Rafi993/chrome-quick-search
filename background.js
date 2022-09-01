@@ -115,9 +115,10 @@ const flatten = (bookmarks) => {
     let children = [];
     if (bookmark.url) {
       flatennedBookmarks.push({
-        title: bookmark.title.toLowerCase(),
-        orignalTitle: bookmark.title,
+        label: bookmark.title,
         url: bookmark.url,
+        key: (bookmark.title || '').toLowerCase(),
+        emoji: '⭐',
       });
     }
 
@@ -141,7 +142,15 @@ const clickHandler = async (tab) => {
     files: [`index.js`],
   });
 
-  chrome.tabs.sendMessage(tab.id, { tabId: tab.id, topWebsites });
+  chrome.tabs.sendMessage(tab.id, {
+    tabId: tab.id,
+    topWebsites: topWebsites.slice(0, 4).map((website) => ({
+      label: website.title,
+      url: website.url,
+      key: (website.title || '').toLowerCase(),
+      emoji: '🌐',
+    })),
+  });
 
   // Adding removing listener before adding them to avoid duplicate event listeners
   chrome.runtime.onMessage.removeListener(messageHandler);

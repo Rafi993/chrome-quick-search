@@ -22,6 +22,23 @@ const Emoji = styled.div`
   min-width: 25px;
 `;
 
+const Favicon = styled.img`
+  padding-right: 8px;
+  min-width: 25px;
+`;
+
+const LeftItem = ({ command }) => {
+  if (command.emoji) {
+    return <Emoji>{command.emoji}</Emoji>;
+  }
+
+  if (command.favIconURL) {
+    return <Favicon src={command.favIconURL} />;
+  }
+
+  return <Emoji />;
+};
+
 export const List = ({ heading, commands, handleCommand }) => (
   <Command.Group heading={heading}>
     {commands.map((command) => (
@@ -32,7 +49,7 @@ export const List = ({ heading, commands, handleCommand }) => (
       >
         <StyledListItem>
           <div>
-            <Emoji>{command.emoji}</Emoji>
+            <LeftItem command={command} />
             {command.label}
           </div>
 

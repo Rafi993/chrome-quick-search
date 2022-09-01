@@ -59,9 +59,10 @@ export const commands = [
   {
     label: 'Fullscreen mode',
     key: 'full_screen',
+    emoji: '🪟',
   },
   { label: 'Settings', key: 'settings', emoji: '⚙️' },
-  { label: 'Extensions', key: 'extensions' },
+  { label: 'Extensions', key: 'extensions', emoji: '🏗️' },
   { label: 'History', key: 'history', emoji: '📜' },
   {
     label: 'Downloads',
@@ -79,5 +80,6 @@ export const commands = [
   {
     label: 'Capture Screenshot',
     key: 'desktop_capture',
+    emoji: '📸',
   },
 ];
