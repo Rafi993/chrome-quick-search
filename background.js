@@ -1,11 +1,11 @@
-const messageHandler = (request, sender) => {
+const messageHandler = async (request, sender) => {
   const tabId = sender.tab.id;
 
   if (!sender.tab.active) return;
 
   switch (request.command) {
     case 'close_tab':
-      chrome.tabs.remove(tabId, () => {});
+      chrome.tabs.remove(tabId);
       return;
     case 'new_tab':
       chrome.tabs.create({
@@ -74,37 +74,60 @@ const messageHandler = (request, sender) => {
           serviceWorkers: true,
           webSQL: true,
         },
-
-        () => {
-          console.log('deleted', request.subCommand);
-        },
       );
       return;
     case 'close_inactive_tabs':
-      chrome.tabs.query({}, (tabs) => {
-        tabs.forEach((tab) => {
-          if (!tab.active) chrome.tabs.remove(tab.id);
-        });
+      const tabs = await chrome.tabs.query({});
+      tabs.forEach((tab) => {
+        if (!tab.active) chrome.tabs.remove(tab.id);
       });
       return;
     case 'desktop_capture':
-      chrome.tabs.captureVisibleTab(
+      const imageURI = await chrome.tabs.captureVisibleTab(
         sender.tab.windowId,
         {
           format: 'jpeg',
         },
-        (imageURI) => {
-          chrome.tabs.create({
-            url: imageURI,
-          });
-        },
       );
+      chrome.tabs.create({
+        url: imageURI,
+      });
+      return;
     case 'open_url':
       chrome.tabs.update({
         url: request.url,
       });
       return;
+    case 'bookmarks':
+      const bookmarks = await chrome.bookmarks.getTree();
+      chrome.tabs.sendMessage(tabId, {
+        tabId,
+        bookmarks: flatten(bookmarks),
+      });
+      return;
   }
+};
+
+const flatten = (bookmarks) => {
+  let flatennedBookmarks = [];
+
+  bookmarks.forEach((bookmark) => {
+    let children = [];
+    if (bookmark.url) {
+      flatennedBookmarks.push({
+        title: bookmark.title.toLowerCase(),
+        orignalTitle: bookmark.title,
+        url: bookmark.url,
+      });
+    }
+
+    if (bookmark.children) {
+      children = [...children, ...flatten(bookmark.children)];
+      flatennedBookmarks = [...flatennedBookmarks, ...children];
+    }
+  });
+
+  return flatennedBookmarks;
 };
 
 const clickHandler = async (tab) => {
@@ -118,7 +141,6 @@ const clickHandler = async (tab) => {
     files: [`index.js`],
   });
 
-  console.log('topWebsites', topWebsites);
   chrome.tabs.sendMessage(tab.id, { tabId: tab.id, topWebsites });
 
   // Adding removing listener before adding them to avoid duplicate event listeners

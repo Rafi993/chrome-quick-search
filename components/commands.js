@@ -60,6 +60,7 @@ export const commands = [
     label: 'Downloads',
     key: 'downloads',
   },
+  { label: 'Search Bookmarks', key: 'bookmarks' },
   { label: 'Bookmark manager', key: 'bookmark_manager' },
   {
     label: 'Clear Browsing Data',

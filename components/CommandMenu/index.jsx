@@ -27,6 +27,8 @@ export const CommandMenu = ({ handleClose }) => {
   const [topWebsites, setTopWebsites] = useState([]);
   const containerRef = useRef(null);
   const [isLoading, setLoading] = useState(false);
+  const [bookmarks, setBookmarks] = useState([]);
+
   useClickOutside({ ref: containerRef, handleClose });
 
   useEffect(() => {
@@ -35,6 +37,15 @@ export const CommandMenu = ({ handleClose }) => {
         if (request.topWebsites) {
           setTopWebsites(
             request.topWebsites.slice(0, 4).map((website) => ({
+              label: website.title,
+              key: website.url,
+            })),
+          );
+        }
+
+        if (request.bookmarks) {
+          setBookmarks(
+            request.bookmarks.map((website) => ({
               label: website.title,
               key: website.url,
             })),
@@ -54,6 +65,7 @@ export const CommandMenu = ({ handleClose }) => {
       if (key === 'Escape') {
         if (parentCommand) {
           setParentCommand(null);
+          setBookmarks([]);
         } else {
           handleClose();
         }
@@ -83,6 +95,15 @@ export const CommandMenu = ({ handleClose }) => {
         return;
       case 'desktop_capture':
         handleClose();
+        setTimeout(() => {
+          chrome.runtime.sendMessage({
+            command,
+          });
+        }, 0);
+        return;
+      case 'bookmarks':
+        setSearch('');
+        setParentCommand('bookmarks');
         chrome.runtime.sendMessage({
           command,
         });
@@ -109,6 +130,45 @@ export const CommandMenu = ({ handleClose }) => {
 
   if (isLoading) return null;
 
+  const getList = () => {
+    if (parentCommand === 'bookmarks') {
+      return (
+        <List
+          heading="Bookmarks"
+          commands={bookmarks}
+          handleCommand={handleWebsite}
+        />
+      );
+    }
+    if (parentCommand) {
+      return (
+        <List
+          heading={subCommands[parentCommand].title}
+          commands={subCommands[parentCommand].commands}
+          handleCommand={handleSubCommand}
+        />
+      );
+    }
+
+    return (
+      <>
+        {topWebsites.length > 0 && (
+          <List
+            heading="Most Visited Websites"
+            commands={topWebsites}
+            handleCommand={handleWebsite}
+          />
+        )}
+
+        <List
+          heading="Commands"
+          commands={commands}
+          handleCommand={handleCommand}
+        />
+      </>
+    );
+  };
+
   return (
     <FocusLock>
       <StyledCommandMenu className="framer" ref={containerRef}>
@@ -122,29 +182,7 @@ export const CommandMenu = ({ handleClose }) => {
           <Command.List>
             <Command.Empty>No results found.</Command.Empty>
 
-            {parentCommand ? (
-              <List
-                heading={subCommands[parentCommand].title}
-                commands={subCommands[parentCommand].commands}
-                handleCommand={handleSubCommand}
-              />
-            ) : (
-              <>
-                {topWebsites.length > 0 && (
-                  <List
-                    heading="Most Visited Websites"
-                    commands={topWebsites}
-                    handleCommand={handleWebsite}
-                  />
-                )}
-
-                <List
-                  heading="Commands"
-                  commands={commands}
-                  handleCommand={handleCommand}
-                />
-              </>
-            )}
+            {getList()}
           </Command.List>
         </Command>
       </StyledCommandMenu>
