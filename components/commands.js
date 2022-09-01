@@ -24,48 +24,57 @@ export const commands = [
   {
     label: 'Close Tab',
     key: 'close_tab',
+    emoji: '🗑️',
   },
   {
     label: 'Close Other Tabs',
     key: 'close_inactive_tabs',
+    emoji: '🗑️',
   },
   {
     label: 'New Tab',
     key: 'new_tab',
+    emoji: '✨',
   },
   {
     label: 'Duplicate Tab',
     key: 'duplicate_tab',
+    emoji: '🙂🙂',
   },
   {
     label: 'New Window',
     key: 'new_window',
+    emoji: '✨',
   },
   {
     label: 'New Private Window',
     key: 'new_private_window',
+    emoji: '🕵️‍♂️',
   },
   {
     label: 'Close Window',
     key: 'close_window',
+    emoji: '🗑️',
   },
   {
     label: 'Fullscreen mode',
     key: 'full_screen',
   },
-  { label: 'Settings', key: 'settings' },
+  { label: 'Settings', key: 'settings', emoji: '⚙️' },
   { label: 'Extensions', key: 'extensions' },
-  { label: 'History', key: 'history' },
+  { label: 'History', key: 'history', emoji: '📜' },
   {
     label: 'Downloads',
     key: 'downloads',
+    emoji: '📥',
   },
-  { label: 'Bookmarks', key: 'bookmarks', hasChildren: true },
-  { label: 'Bookmark manager', key: 'bookmark_manager' },
+  { label: 'Bookmarks', key: 'bookmarks', emoji: '⭐', hasChildren: true },
+  { label: 'Bookmark manager', key: 'bookmark_manager', emoji: '🗄️' },
   {
     label: 'Clear Browsing Data',
     key: 'delete_data',
     hasChildren: true,
+    emoji: '❌',
   },
   {
     label: 'Capture Screenshot',

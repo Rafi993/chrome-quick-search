@@ -6,7 +6,7 @@ Chrome extension to do things quickly.
 
 ## How to install?
 
-Visit Chrome web store here to install the extension
+Visit Chrome web store [here](https://chrome.google.com/webstore/detail/quick-search/goejincbenkgogiffgbolgpeeodilbmh/related?hl=en&authuser=0) to install the extension
 Press "CMD+E" or "CTRL+E" to launch the quick search menu.
 
 ## To run

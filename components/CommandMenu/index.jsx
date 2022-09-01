@@ -13,7 +13,7 @@ const StyledCommandMenu = styled.dialog`
   padding: 0;
   border-radius: 16px;
   position: fixed;
-  width: 500px;
+  width: 600px;
   margin: 5% auto;
   left: 0;
   right: 0;
@@ -38,7 +38,8 @@ export const CommandMenu = ({ handleClose }) => {
           setTopWebsites(
             request.topWebsites.slice(0, 4).map((website) => ({
               label: website.title,
-              key: website.url,
+              url: website.url,
+              key: (website.title || '').toLowerCase(),
             })),
           );
         }
@@ -47,7 +48,9 @@ export const CommandMenu = ({ handleClose }) => {
           setBookmarks(
             request.bookmarks.map((website) => ({
               label: website.title,
-              key: website.url,
+              url: website.url,
+              key: (website.title || '').toLowerCase(),
+              emoji: '⭐',
             })),
           );
         }
@@ -64,6 +67,7 @@ export const CommandMenu = ({ handleClose }) => {
 
       if (key === 'Escape') {
         if (parentCommand) {
+          setSearch('');
           setParentCommand(null);
           setBookmarks([]);
         } else {
@@ -79,7 +83,7 @@ export const CommandMenu = ({ handleClose }) => {
     };
   }, [parentCommand, setParentCommand]);
 
-  const handleWebsite = (url) => {
+  const handleWebsite = ({ url }) => {
     chrome.runtime.sendMessage({
       command: 'open_url',
       url,
@@ -87,7 +91,7 @@ export const CommandMenu = ({ handleClose }) => {
     handleClose();
   };
 
-  const handleCommand = (command) => {
+  const handleCommand = ({ key: command }) => {
     switch (command) {
       case 'delete_data':
         setSearch('');
@@ -116,7 +120,7 @@ export const CommandMenu = ({ handleClose }) => {
     }
   };
 
-  const handleSubCommand = (subCommand) => {
+  const handleSubCommand = ({ key: subCommand }) => {
     switch (subCommand) {
       default:
         chrome.runtime.sendMessage({

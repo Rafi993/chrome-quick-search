@@ -7,13 +7,16 @@ const StyledListItem = styled.div`
   justify-content: space-between;
   width: 100%;
   align-items: center;
-  > span {
+  > div {
     display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0 4px;
     width: 90%;
+    > span {
+      padding-right: 8px;
+    }
   }
 `;
 
@@ -23,10 +26,13 @@ export const List = ({ heading, commands, handleCommand }) => (
       <Command.Item
         value={command.key}
         key={command.key}
-        onSelect={() => handleCommand(command.key)}
+        onSelect={() => handleCommand(command)}
       >
         <StyledListItem>
-          <span>{command.label}</span>
+          <div>
+            <span>{command.emoji}</span>
+            {command.label}
+          </div>
 
           {command.hasChildren && <MdKeyboardArrowRight />}
         </StyledListItem>
