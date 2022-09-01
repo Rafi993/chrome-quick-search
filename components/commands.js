@@ -62,7 +62,7 @@ export const commands = [
   },
   { label: 'Bookmark manager', key: 'bookmark_manager' },
   {
-    label: 'Delete Browsing Data',
+    label: 'Clear Browsing Data',
     key: 'delete_data',
     hasChildren: true,
   },
