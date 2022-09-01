@@ -1,11 +1,19 @@
 import { Command } from 'cmdk';
 import styled from 'styled-components';
+import { MdKeyboardArrowRight } from 'react-icons/md';
 
 const StyledListItem = styled.div`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0 4px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  > span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 4px;
+    width: 90%;
+  }
 `;
 
 export const List = ({ heading, commands, handleCommand }) => (
@@ -16,7 +24,11 @@ export const List = ({ heading, commands, handleCommand }) => (
         key={command.key}
         onSelect={() => handleCommand(command.key)}
       >
-        <StyledListItem>{command.label}</StyledListItem>
+        <StyledListItem>
+          <span>{command.label}</span>
+
+          {command.hasChildren && <MdKeyboardArrowRight />}
+        </StyledListItem>
       </Command.Item>
     ))}
   </Command.Group>
