@@ -17,6 +17,11 @@ $ pnpm start
 
 ```
 
+## Tech stack
+
+- Parcel
+- React
+
 ## Why?
 
 This Chrome extension shows you command palette to do things easily in Chrome.
