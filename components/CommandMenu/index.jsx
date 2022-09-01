@@ -122,7 +122,7 @@ export const CommandMenu = ({ handleClose }) => {
   if (isLoading) return null;
 
   const getList = () => {
-    if (parentCommand === 'bookmarks') {
+    if (parentCommand === 'bookmarks' && bookmarks.length > 0) {
       return (
         <List
           heading="Bookmarks"
@@ -131,7 +131,8 @@ export const CommandMenu = ({ handleClose }) => {
         />
       );
     }
-    if (parentCommand) {
+
+    if (parentCommand && parentCommand !== 'bookmarks') {
       return (
         <List
           heading={subCommands[parentCommand].title}
