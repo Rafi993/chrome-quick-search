@@ -105,6 +105,11 @@ const messageHandler = async (request, sender) => {
         bookmarks: flatten(bookmarks),
       });
       return;
+    case 'toggle_pin':
+      chrome.tabs.update(tabId, {
+        pinned: !sender.tab.pinned,
+      });
+      return;
   }
 };
 

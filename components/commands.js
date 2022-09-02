@@ -82,4 +82,9 @@ export const commands = [
     key: 'desktop_capture',
     emoji: '📸',
   },
+  {
+    label: 'Toggle Pinned Tab',
+    key: 'toggle_pin',
+    emoji: '📌',
+  },
 ];
