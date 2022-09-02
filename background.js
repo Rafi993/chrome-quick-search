@@ -110,6 +110,9 @@ const messageHandler = async (request, sender) => {
         pinned: !sender.tab.pinned,
       });
       return;
+    case 'search':
+      chrome.search.query({ text: request.search });
+      return;
   }
 };
 

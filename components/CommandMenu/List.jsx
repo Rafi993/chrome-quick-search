@@ -2,7 +2,7 @@ import { Command } from 'cmdk';
 import styled from 'styled-components';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 
-const StyledListItem = styled.div`
+export const StyledListItem = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -17,7 +17,7 @@ const StyledListItem = styled.div`
   }
 `;
 
-const Emoji = styled.div`
+export const Emoji = styled.div`
   padding-right: 8px;
   min-width: 25px;
 `;

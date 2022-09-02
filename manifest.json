@@ -8,7 +8,8 @@
     "scripting",
     "browsingData",
     "topSites",
-    "bookmarks"
+    "bookmarks",
+    "search"
   ],
   "background": {
     "service_worker": "background.js",
