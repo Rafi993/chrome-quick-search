@@ -167,7 +167,7 @@ export const CommandMenu = ({ handleClose }) => {
 
         <Command.Item
           onSelect={() => handleCommand({ key: 'search' })}
-          value={`Search${search}`}
+          value={`${search}`}
         >
           <StyledListItem>
             <div>
