@@ -43,7 +43,7 @@ export const List = ({ heading, commands, handleCommand }) => (
   <Command.Group heading={heading}>
     {commands.map((command) => (
       <Command.Item
-        value={command.key}
+        value={command.label}
         key={command.key}
         onSelect={() => handleCommand(command)}
       >
