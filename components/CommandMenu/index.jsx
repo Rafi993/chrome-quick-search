@@ -4,7 +4,8 @@ import FocusLock from 'react-focus-lock';
 import styled from 'styled-components';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { commands, subCommands } from '../commands';
-import { Emoji, List, StyledListItem } from './List';
+import { List } from './List';
+import { Search } from './Search';
 
 const StyledCommandMenu = styled.dialog`
   background: #282828;
@@ -78,7 +79,9 @@ export const CommandMenu = ({ handleClose }) => {
     handleClose();
   };
 
-  const handleCommand = ({ key: command }) => {
+  const handleCommand = (request) => {
+    const { key: command } = request;
+
     switch (command) {
       case 'delete_data':
         setSearch('');
@@ -102,7 +105,7 @@ export const CommandMenu = ({ handleClose }) => {
       case 'search':
         chrome.runtime.sendMessage({
           command,
-          search,
+          search: request.text,
         });
         return;
       default:
@@ -164,18 +167,7 @@ export const CommandMenu = ({ handleClose }) => {
           commands={commands}
           handleCommand={handleCommand}
         />
-
-        <Command.Item
-          onSelect={() => handleCommand({ key: 'search' })}
-          value={`${search}`}
-        >
-          <StyledListItem>
-            <div>
-              <Emoji>🔍</Emoji>
-              Search "{search}"
-            </div>
-          </StyledListItem>
-        </Command.Item>
+        <Search handleCommand={handleCommand} search={search} />
       </>
     );
   };
